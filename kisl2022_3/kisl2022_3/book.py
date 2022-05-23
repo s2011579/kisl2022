@@ -1,5 +1,5 @@
 """
-予約一覧の取得・新規追加・編集・削除を行う
+予約一覧・検索・予約を行う
 """
 
 from datetime import datetime
