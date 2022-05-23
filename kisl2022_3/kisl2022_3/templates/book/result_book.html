@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1 style="margin-bottom:50px">検索結果一覧</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="{{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 15%" class="text-center">対応支援室等</th>
+                <th style="width: 15%" class="text-center">建物</th>
+                <th style="width: 20%" class="text-center">教室名</th>
+                <th style="width: 10%" class="text-center">定員</th>
+                <th style="width: 4%" class="text-center">VTR</th>
+                <th style="width: 4%" class="text-center">DVD</th>
+                <th style="width: 4%" class="text-center">液晶プロジェクタ</th>
+                <th style="width: 4%" class="text-center">OHP</th>
+                <th style="width: 4%" class="text-center">スクリーン</th>
+                <th style="width: 4%" class="text-center">暗幕</th>
+                <th style="width: 4%" class="text-center">書画カメラ</th>
+                <th style="width: 4%" class="text-center">授業自動収録システム</th>
+                <th style="width: 4%" class="text-center">遠隔講義システム</th>
+                <th style="width: 4%" class="text-center">固定机</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for re in results %}
+            <tr>
+                <td class="text-center">{{ re.support_room }}</td>
+                <td class="text-center">{{ re.building }}</td>
+                <td class="text-center"><a href="{{ url_for('book.check_book', class_room=re.class_room) }}">{{ re.class_room }}</a></td>
+                <td class="text-center">{{ re.capacity }}</td>
+                {% for r in re.VTR, re.DVD, re.projector, re.OHP, re.screen, re.blackout_curtain, re.document_camera, re.automatic_recording, re.remote_lecture, re.fixed_desk %}
+                    {% if r == 1 %}
+                    <td class="text-center">〇</td>
+                    {% else %}
+                    <td class="text-center">×</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% else %}
+            <td>検索条件に合う教室がありません</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

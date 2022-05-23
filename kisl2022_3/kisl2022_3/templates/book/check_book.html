@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1 style="margin-bottom:50px">{{ class_room }} の予約状況一覧</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="{{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="width: 10%" class="text-center">日付</th>
+                <th style="width: 10%" class="text-center">1限<br>(8:40-9:55)</th>
+                <th style="width: 10%" class="text-center">2限<br>(10:10-11:25)</th>
+                <th style="width: 10%" class="text-center">昼休み<br>(11:25-12:15)</th>
+                <th style="width: 10%" class="text-center">3限<br>(12:15-13:30)</th>
+                <th style="width: 10%" class="text-center">4限<br>(13:45-15:00)</th>
+                <th style="width: 10%" class="text-center">5限<br>(15:15-16:30)</th>
+                <th style="width: 10%" class="text-center">6限<br>(16:45-18:00)</th>
+                <th style="width: 10%" class="text-center">7限<br>(18:15-19:30)</th>
+                <th style="width: 10%" class="text-center">8限<br>(19:45-21:00)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in check_results %}
+                {% if result.lecture == 1 %}
+                <tr>
+                    <th class="text-center">{{ result.date }}（{{ result.weekday }}）
+                    </th>
+                {% endif %}
+
+                {% if result.book_group %}
+                    <td class="text-center">
+                        <p data-toggle="tooltip" data-html="true" 
+                            title="<h4>{{ result.date }}（{{ result.weekday }}）<br>{{ result.lecture_div }}<br>予約名義：【 {{ result.book_group }} 】<br>予約内容：【 {{ result.book_matter }} 】</h4>">×</p>
+                    </td>
+                {% else %}
+                    <td class="text-center">
+                        <a href="{{ url_for('book.reserve_book', book_classroom=class_room, book_date=result.datek, book_lecture=result.lecture) }}">
+                        <button class="btn btn-primary" data-toggle="tooltip" data-html="true" 
+                            title="<h4>{{ result.date }}（{{ result.weekday }}）<br>{{ result.lecture_div }}<br>予約できます</h4>">〇
+                        </button>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {% if result.lecture == 9 %}
+                </tr>
+                {% endif %}
+            {% else %}
+            <td>Flaskによる何らかの失敗が起こりました。</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

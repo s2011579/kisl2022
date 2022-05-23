@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1 style="margin-bottom:50px">教室検索</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="{{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <form method="GET" action="cr">
+        <div class="form-group">
+            <label for="select-support-room">エリア・支援室</label>
+            <select id="select-support-room" class="form-control" name="support_room">
+                <option selected>すべてのエリア・支援室</option>
+                <option value="人文社会エリア支援室">人文社会エリア支援室（1B棟、1C棟、1H棟、共同利用棟A）</option>
+                <option value="数理物質エリア支援室">数理物質エリア支援室（1D棟、1E棟）</option>
+                <option value="人間エリア支援室">人間エリア支援室（2A棟）</option>
+                <option value="生命環境エリア支援室">生命環境エリア支援室（2B棟、2C棟、2D棟、2G棟、2H棟）</option>
+                <option value="システム情報エリア支援室">システム情報エリア支援室（3A棟、3B棟、3K棟、3L棟）</option>
+                <option value="医学医療エリア支援室">医学医療エリア支援室（4A棟、臨床講義室、4B棟、4C棟、共同利用棟B）</option>
+                <option value="体育芸術エリア支援室">体育芸術エリア支援室（5C棟）</option>
+                <option value="図書館情報エリア支援室">図書館情報エリア支援室（7A棟、情報メディアユニオン）</option>
+                <option value="CEGLOC">CEGLOC（2B棟、9P棟、9L棟、CA棟）</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="select-building">教室棟</label>
+            <select id="select-building" class="form-control" name="building">
+                <option selected>すべての教室棟</option>
+                <option>1B棟</option>
+                <option>1C棟</option>
+                <option>1D棟</option>
+                <option>1E棟</option>
+                <option>1H棟</option>
+                <option>共同利用棟A</option>
+                <option>2A棟</option>
+                <option>2B棟</option>
+                <option>2C棟</option>
+                <option>2D棟</option>
+                <option>2G棟</option>
+                <option>2H棟</option>
+                <option>3A棟</option>
+                <option>3B棟</option>
+                <option>3K棟</option>
+                <option>3L棟</option>
+                <option>4A棟</option>
+                <option>臨床講義室</option>
+                <option>4B棟</option>
+                <option>4C棟</option>
+                <option>共同利用棟B</option>
+                <option>5C棟</option>
+                <option>7A棟</option>
+                <option>情報メディアユニオン</option>
+                <option>CEGLOC（日本語教育部門）</option>
+                <option>国際講義棟（9L棟）</option>
+                <option>CEGLOC（外国語教育部門）</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>定員（人以上）</label>
+            <input type="number" class="form-control" name="capacity">
+        </div>
+        <p>
+            <a class="btn btn-info" data-toggle="collapse" href="#search-option-1" role="button" aria-expand="false" aria-controls="search-option-1">詳しい検索条件を表示する</a></button>
+        </p>
+        <div class="collapse" id="search-option-1">
+            <div class="card card-body">
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckVTR">VTR</label>
+                    <input class="form-check-input" type="checkbox" id="CheckVTR" name="VTR">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckDVD">DVD</label>
+                    <input class="form-check-input" type="checkbox" id="CheckDVD" name="DVD">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckProjector">液晶プロジェクタ</label>
+                    <input class="form-check-input" type="checkbox" id="CheckProjector" name="Projector">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckOHP">OHP</label>
+                    <input class="form-check-input" type="checkbox" id="CheckOHP" name="OHP">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckScreen">スクリーン</label>
+                    <input class="form-check-input" type="checkbox" id="CheckScreen" name="Screen">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckBlackoutCurtain">暗幕</label>
+                    <input class="form-check-input" type="checkbox" id="CheckBlackoutCurtain" name="BlackoutCurtain">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckDocumentCamera">書画カメラ</label>
+                    <input class="form-check-input" type="checkbox" id="CheckDocumentCamera" name="DocumentCamera">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckAutomaticRecording">授業自動収録システム</label>
+                    <input class="form-check-input" type="checkbox" id="CheckAutomaticRecording" name="AutomaticRecording">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckRemoteLecture">遠隔講義システム</label>
+                    <input class="form-check-input" type="checkbox" id="CheckRemoteLecture" name="RemoteLecture">
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label" for="CheckFixedDesk">固定机</label>
+                    <input class="form-check-input" type="checkbox" id="CheckFixedDesk" name="FixedDesk">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">検索する</button>
+    </form>
+
+{% endblock %}

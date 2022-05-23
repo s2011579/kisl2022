@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1 style="margin-bottom:50px">予約の削除の確認</h1>
+
+    <h2>日付：　{{ book.book_date }}（{{ book.weekday }}）<br>
+        時限：　{{ book.lecture }}<br>
+        教室名：　{{ book.class_room }}<br>
+        予約名義：　{{ book.book_group }}<br>
+        予約内容：　{{ book.book_matter }}</h2>
+    <h4>上記の予約内容を本当に削除しますか？（<a href={{url_for('book.index_book')}}>戻る</a>）</h4>
+
+    <form method="post">
+        <button type="submit" class="btn btn-primary">予約の削除</button>
+    </form>
+
+{% endblock %}

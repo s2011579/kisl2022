@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <h1 style="margin-bottom:50px">{{ g.user['username'] }} さんの予約一覧</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="{{ category }}">{{ message }}</div>
+    {% endfor %}
+
+    <a class="h3" href="{{ url_for('book.searchcr') }}">教室を検索・予約する</a>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>時限</th>
+                <th>教室</th>
+                <th>予約名義</th>
+                <th>予約内容</th>
+                <th>編集</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.book_date }}（{{ book.weekday }}）</td>
+                <td>{{ book.lecture }}</td>
+                <td>{{ book.class_room }}</td>
+                <td>{{ book.book_group }}</td>
+                <td>{{ book.book_matter }}</td>
+                <td>
+                    <a href="{{ url_for('book.delete_book', book_id=book.id) }}">削除</a>
+                </td>
+            </tr>
+            {% else %}
+            <td>予約がありません</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
